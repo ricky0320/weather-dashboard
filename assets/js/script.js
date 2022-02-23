@@ -122,3 +122,122 @@ function displayContainerData(city, data) {
     headerForecastEl.append(headerRowEl);
     cityContainerEl.append(headerForecastEl);
 };
+
+function formatCityData(city, data) {
+    displayContainerData(city, data.daily[0]);
+
+    // Display 5 next days 
+    var forecastEl = $("#forecast");
+
+    forecastEl.html(""); 
+    if (!forecastEl.hasClass("row")) {
+        forecastEl.addClass("row");
+    }
+
+
+    // for loop for next 5 days
+    for (var i = 1; i < 6; i++) {
+        var containerEl = $("<div>");
+        containerEl.addClass("col-2");
+
+        var cardEl = $("<div>");
+        //cardEl.addClass("card");
+        cardEl.addClass("dark");
+
+        var dateEl = $("<div>");
+        dateEl.html(displayDate(data.daily[i].dt));
+        dateEl.addClass("card-header");
+        dateEl.addClass("shrink");
+        cardEl.append(dateEl);
+
+        var iconEl = $("<img>");
+        iconEl.attr("src", getIconLocation(data.daily[i].weather[0].icon, "@2x"));
+        iconEl.addClass("shrink-icon");
+        cardEl.append(iconEl);
+
+        var tempEl = $("<div>");
+        tempEl.html("Temp: " + data.daily[i].temp.max + "&deg;F");
+        tempEl.addClass("shrink");
+        cardEl.append(tempEl);
+
+        var windEl = $("<div>");
+        windEl.html("Wind: " + data.daily[i].wind_speed + " MPH");
+        windEl.addClass("shrink");
+        cardEl.append(windEl);
+
+        var humidEl = $("<div>");
+        humidEl.html("Humidity: " + data.daily[i].humidity + "%");
+        humidEl.addClass("shrink");
+        cardEl.append(humidEl);
+
+        containerEl.append(cardEl);
+        forecastEl.append(containerEl);
+    }
+};
+
+function getIconLocation(icon, size) {
+    if (size === undefined) {
+        size = "";
+    }
+return "http://openweathermap.org/img/wn/" + icon + size + ".png";
+};
+
+function addCityButton(city) {
+    // If city not found in array
+    if (cities.indexOf(city) === -1) {
+        cities.unshift(city); // Add it at beginning
+    }
+
+    saveCities();
+    displayCityButtons();
+};
+
+// Display latest researched cities
+function displayCityButtons() {
+    var cityButtonsEl = $("#city-buttons");
+    cityButtonsEl.html(""); 
+
+    for (var i = 0; i < cities.length; i++) {
+        var newButton = $("<button>");
+        newButton.html(cities[i]);
+        newButton.attr("data-city", cities[i]);
+        newButton.addClass("btn");
+        newButton.addClass("dark");
+
+        cityButtonsEl.append(newButton);
+    }
+};
+
+//Search city box
+$("#user-form").on("submit", function (event) {
+    event.preventDefault();
+
+    var cityEl = $("#city");
+    var city = cityEl.val().trim();
+    cityEl.val(""); 
+    if (city) {
+        apiLatLon(city);
+    } else {
+        alert("Please enter a valid city name.");
+    }
+});
+
+$("#city-buttons").on("click", function (event) {
+    var city = $(event.target).attr("data-city");
+    if (city) {
+        apiLatLon(city);
+    }
+});
+
+function saveCities() {
+    localStorage.setItem("cities", JSON.stringify(cities));
+};
+
+function loadCities() {
+    cities = JSON.parse(localStorage.getItem("cities"));
+    if (!cities) {
+        cities = [];
+    }
+
+    displayCityButtons();
+};

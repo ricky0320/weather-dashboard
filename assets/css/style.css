@@ -1,8 +1,55 @@
-header {
-    background-color: blue;
+h1 {
+    background-color: rgb(46, 173, 163);
     color: white;
-    font-size: 2rem;
-    font-weight: bolder;
-    text-align: center;
-    padding: 10px;
-}
+  }
+  
+  h2 {
+  font-size: 30px;
+  }
+  
+  .bg-danger,
+  .bg-success,
+  .bg-warning {
+  color: white;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 10px;
+  }
+  
+  .btn {
+  width: 100%;
+  margin: 5px;
+  }
+  
+  .dark {
+  color: white;
+  background-color: #1900ff;
+  justify-content: right;
+  }
+  
+  .form-input {
+  width: 100%;
+  }
+  
+  .shrink {
+  font-size: 15px;
+  padding: 5px;
+  }
+  
+  .shrink-icon {
+  height: 50px;
+  width: 50px;
+  
+  }
+  
+  .background {
+    background-color: #efeeee;
+    
+  }
+  
+  #city-temp,
+  #city-wind,
+  #city-humid,
+  #city-uvi {
+    padding: 10px;    
+  } 

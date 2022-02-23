@@ -32,4 +32,4 @@ THEN I am again presented with current and future conditions for that city
 https://ricky0320.github.io/weather-tracker/
 
 ## Image of Website
-
+![weather-dashboard](./assets/images/weather-dashboard.jpg)
