@@ -88,3 +88,37 @@ function displayContainerData(city, data) {
     humidEl.attr("id", "city-humid");
     humidEl.html("Humidity: " + data.humidity + "%");
     cityCardEl.append(humidEl);
+
+    var uviEl = $("<div>");
+    uviEl.attr("id", "city-uvi");
+    uviEl.html("UV Index: ");
+
+    // UV background color
+    var uviTextClass = "";
+    if (data.uvi < 3) {
+        uviTextClass = "bg-success";
+    } else if (data.uvi >= 3 && data.uvi < 6) {
+        uviTextClass = "bg-warning";
+    } else {
+        uviTextClass = "bg-danger";
+    }
+    
+
+    var uviSpanEl = $("<span>");
+    uviSpanEl.html(data.uvi);
+    uviSpanEl.addClass(uviTextClass);
+    uviEl.append(uviSpanEl);
+
+    cityCardEl.append(uviEl);
+    cityContainerEl.append(cityCardEl);
+
+    var headerForecastEl = $("<h3>");
+    headerForecastEl.html("5-day forecast");
+
+    var headerRowEl = $("<div>");
+    headerRowEl.attr("id", "forecast");
+    headerRowEl.addClass("row");
+    
+    headerForecastEl.append(headerRowEl);
+    cityContainerEl.append(headerForecastEl);
+};
