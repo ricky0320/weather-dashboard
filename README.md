@@ -28,7 +28,6 @@ THEN I am again presented with current and future conditions for that city
 * jQuery
 * OpenWeather API
 
-
 ## Website
 https://ricky0320.github.io/weather-tracker/
 
